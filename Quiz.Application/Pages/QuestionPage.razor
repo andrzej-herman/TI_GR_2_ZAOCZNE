@@ -1,0 +1,50 @@
+﻿@inject NavigationManager Nav
+@page "/question/{Category}"
+@inject IJSRuntime JSRuntime
+
+<style>
+    .answer {
+    width: 400px;
+    min-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    transition: all ease-in-out 0.5s;
+    }
+
+    .answer:hover {
+    background-color: blue;
+    color: #fff;
+    }
+</style>
+
+
+<h4>Pytanie za 100 pkt</h4>
+<h3>Jak miał na imię słynny fizyk Einstein?</h3>
+<div class="no-wrap width:880px; display:flex; align-items:center; justify-content:center; flex-wrap:">
+    <div class="answer">Odpowiedź 1</div>
+    <div class="answer">Odpowiedź 2</div>
+    <div class="answer">Odpowiedź 3</div>
+    <div class="answer">Odpowiedź 4</div>
+</div>
+
+
+@code {
+
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public string? Category { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var test = int.Parse(Category);
+       
+    }
+
+}

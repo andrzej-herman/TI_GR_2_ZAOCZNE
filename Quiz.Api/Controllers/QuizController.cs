@@ -1,19 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
+using Quiz.Api.Services;
 
 namespace Quiz.Api.Controllers
 {
 	[ApiController]
 	public class QuizController : ControllerBase
 	{
+        private readonly IQuizService _service;
+
+        public QuizController(IQuizService service)
+        {
+            _service = service;
+        }
+
         // daje pytanie z okreúlonej kategorii wraz z odpowiedziami
         // URL => https://localhost:7000/getquestion
 
         [HttpGet]
         [Route("getquestion")]
-        public IActionResult GetQuestion([FromQuery] int category)
+        public async Task<IActionResult> GetQuestion([FromQuery] int category)
         {
-            return Ok();
-               
+            var question = await _service.GetQuestion(category);
+            return question.Error == null ? Ok(question) : BadRequest(question.Error);
         }
 
         // sprawdza czy dana odpwiedü jest prawid≥owa lub nie
@@ -21,9 +29,10 @@ namespace Quiz.Api.Controllers
 
         [HttpGet]
         [Route("checkanswer")]
-        public IActionResult CheckAnswer([FromQuery] int answerId)
+        public async Task<IActionResult> CheckAnswerAndGetNextCategory([FromQuery] Guid answerId, [FromQuery] int category)
         {
-            return Ok();
+            var result = await _service.GetCheckAnswerAndGetNextCategory(answerId, category);
+            return result.Error == null ? Ok(result) : Problem(result.Error);
         }
 
     }

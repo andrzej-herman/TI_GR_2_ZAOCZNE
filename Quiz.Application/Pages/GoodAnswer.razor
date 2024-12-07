@@ -1,0 +1,14 @@
+﻿@inject NavigationManager Nav
+@page "/goodanswer"
+<h1>Brawo to prawidłowa odpowiedź</h1>
+<div style="padding-top:50px">
+    <button type="button" class="btn btn-primary" @onclick="() => NextQuestion()">Rozpocznij Quiz</button>
+</div>
+
+
+@code {
+    private void NextQuestion()
+    {
+        Nav.NavigateTo("/question");
+    }
+}

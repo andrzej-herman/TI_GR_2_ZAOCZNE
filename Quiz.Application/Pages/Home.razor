@@ -1,0 +1,15 @@
+﻿@inject NavigationManager Nav
+@page "/"
+<h1>Witamy w Quizie</h1>
+<h4>Spróbuj odpowiedzieć na wszystkie pytania</h4>
+<div style="padding-top:50px">
+    <button type="button" class="btn btn-primary" @onclick="() => StartQuiz()">Rozpocznij Quiz</button>
+</div>
+
+
+@code {
+    private void StartQuiz()
+    {
+        Nav.NavigateTo("/question/100");
+    }
+}
